@@ -19,7 +19,6 @@ import java.util.Base64;
 
 @Configuration
 public class TwitterApiSecurityConfig {
-    private static final String TWITTER_OAUTH2_TOKEN_API = "https://api.twitter.com/oauth2/token";
     private static String accessToken;
     private Logger logger = LoggerFactory.getLogger(TwitterApiSecurityConfig.class);
 
@@ -28,6 +27,9 @@ public class TwitterApiSecurityConfig {
 
     @Value("${twitter.app.client-secret}")
     private String twtrClientSecret;
+
+    @Value("${twitter.api.oauth-uri}")
+    private String twtrOauthUri;
 
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
@@ -41,7 +43,7 @@ public class TwitterApiSecurityConfig {
         RestTemplate restTemplate = restTemplateBuilder.errorHandler(restTemplateResponseHandler).build();
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(createMultiValueMapForTokenRequest(), createHeadersForTokenRequest());
         ResponseEntity<TwitterAuthResponse> response =
-                restTemplate.exchange(TWITTER_OAUTH2_TOKEN_API,
+                restTemplate.exchange(twtrOauthUri,
                         HttpMethod.POST,
                         request,
                         TwitterAuthResponse.class);
@@ -68,7 +70,7 @@ public class TwitterApiSecurityConfig {
     }
 
 
-    public String getTwitterApiAccessToken() {
+    public static String getTwitterApiAccessToken() {
         return accessToken;
     }
 

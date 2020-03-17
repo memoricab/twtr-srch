@@ -17,8 +17,9 @@ import java.util.List;
 
 @Component
 class TweetDaoImpl implements TweetDao {
+    private static final String INSERT_QUERY = "INSERT INTO TWEETS (TEXT) VALUES(?)";
+    private static final int TEXT_PARAMETER_INDEX = 1;
     private Logger logger = LoggerFactory.getLogger(TweetDaoImpl.class);
-    private static final String INSERT_QUERY = "INSERT_INTO TWEETS (ID, TEXT) VALUES(?,?)";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -41,7 +42,7 @@ class TweetDaoImpl implements TweetDao {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
                 Tweet tweet = tweets.get(i);
-                preparedStatement.setString(2, tweet.getText());
+                preparedStatement.setString(TEXT_PARAMETER_INDEX, tweet.getText());
             }
 
             @Override
@@ -52,7 +53,7 @@ class TweetDaoImpl implements TweetDao {
     }
 
     private ParameterizedPreparedStatementSetter<Tweet> createParameterizedPreparedStatementSetter() {
-        return (preparedStatement, tweet) -> preparedStatement.setString(2, tweet.getText());
+        return (preparedStatement, tweet) -> preparedStatement.setString(TEXT_PARAMETER_INDEX, tweet.getText());
     }
 
     private int calculateTotalUpdatedCount(int[] resultOfBatchUpdate) {
