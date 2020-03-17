@@ -32,7 +32,7 @@ class TweetDaoImpl implements TweetDao {
 
     public List<Tweet> batchInsert(List<Tweet> tweets, int batchSize) {
         int[][] result = jdbcTemplate.batchUpdate(INSERT_QUERY, tweets, batchSize, createParameterizedPreparedStatementSetter());
-        logger.info(InfoMessages.TOTAL_UPDATED_COUNT_FOR_BATCH_UPDATE, calculateTotalUpdatedCountForEachBatch(result));
+        logger.info(InfoMessages.TOTAL_UPDATED_COUNT_FOR_BATCH_UPDATE_FOR_EACH_BATCH, calculateTotalUpdatedCountForEachBatch(result));
         return tweets;
     }
 

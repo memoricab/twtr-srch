@@ -21,7 +21,7 @@ class TweetRepositoryImpl implements TweetRepository {
     @Override
     public List<Tweet> saveAll(List<Tweet> tweets) {
         if (batchSize != 0) {
-            tweetDao.batchInsert(tweets, batchSize);
+            return tweetDao.batchInsert(tweets, batchSize);
         }
         return tweetDao.batchInsert(tweets);
     }
