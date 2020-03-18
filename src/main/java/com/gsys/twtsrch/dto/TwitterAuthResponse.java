@@ -4,8 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/*
-No name convention as this will be serialized directly from json. A response wrapper is a solution to justify name convention.
+/**
+ * No name convention as this will be serialized directly from json. A response wrapper is a solution to justify name convention.
+ * @see: https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets
  */
 @Data
 public class TwitterAuthResponse implements Serializable {

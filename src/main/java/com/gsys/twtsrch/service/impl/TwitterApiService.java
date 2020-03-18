@@ -57,6 +57,10 @@ class TwitterApiService {
             tweetText.setText(status.getUser().get("screen_name") + " says that,  " + status.getText());
             return tweetText;
         }).collect(Collectors.toList());
+        saveTweets(tweetTexts);
+    }
+
+    private void saveTweets(List<TweetText> tweetTexts) {
         if (!tweetTexts.isEmpty()) {
             tweetService.saveTweetTexts(tweetTexts);
         } else {
@@ -80,7 +84,6 @@ class TwitterApiService {
                 new HttpEntity<Object>(generateHeadersWithAccessToken()),
                 responseType).getBody();
     }
-
 
     private MultiValueMap<String, String> generateHeadersWithAccessToken() {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
