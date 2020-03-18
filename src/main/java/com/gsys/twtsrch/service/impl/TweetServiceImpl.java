@@ -27,7 +27,6 @@ class TweetServiceImpl implements TweetService {
         return mapTweetsToTweetTexts(tweetRepository.findAll());
     }
 
-
     private List<TweetText> mapTweetsToTweetTexts(List<Tweet> tweets) {
         return tweets.stream().map(tweet -> {
             TweetText tweetText = new TweetText();
