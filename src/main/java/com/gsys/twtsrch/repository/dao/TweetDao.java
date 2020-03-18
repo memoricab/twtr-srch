@@ -7,4 +7,5 @@ import java.util.List;
 public interface TweetDao {
     List<Tweet> batchInsert(List<Tweet> tweets);
     List<Tweet> batchInsert(List<Tweet> tweets, int batchSize);
+    List<Tweet> findAll();
 }

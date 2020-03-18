@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.util.List;
 @Component
 class TweetDaoImpl implements TweetDao {
     private static final String INSERT_QUERY = "INSERT INTO TWEETS (TEXT) VALUES(?)";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM TWEETS";
     private static final int TEXT_PARAMETER_INDEX = 1;
     private Logger logger = LoggerFactory.getLogger(TweetDaoImpl.class);
 
@@ -35,6 +37,20 @@ class TweetDaoImpl implements TweetDao {
         int[][] result = jdbcTemplate.batchUpdate(INSERT_QUERY, tweets, batchSize, createParameterizedPreparedStatementSetter());
         logger.info(InfoMessages.TOTAL_UPDATED_COUNT_FOR_BATCH_UPDATE_FOR_EACH_BATCH, calculateTotalUpdatedCountForEachBatch(result));
         return tweets;
+    }
+
+    @Override
+    public List<Tweet> findAll() {
+        return jdbcTemplate.query(SELECT_ALL_QUERY, createNewRowMapper());
+    }
+
+    private RowMapper<Tweet> createNewRowMapper() {
+        return (resultSet, rowNum) -> {
+            Tweet tweet = new Tweet();
+            tweet.setId(resultSet.getLong("id"));
+            tweet.setText(resultSet.getString("text"));
+            return tweet;
+        };
     }
 
     private BatchPreparedStatementSetter createBatchPreparedStatementSetter(List<Tweet> tweets) {

@@ -24,7 +24,7 @@ class TweetServiceImpl implements TweetService {
 
     @Override
     public List<TweetText> getTweetTexts() {
-        return null;
+        return mapTweetsToTweetTexts(tweetRepository.findAll());
     }
 
 

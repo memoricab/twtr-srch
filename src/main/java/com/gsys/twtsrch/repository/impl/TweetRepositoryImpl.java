@@ -28,6 +28,6 @@ class TweetRepositoryImpl implements TweetRepository {
 
     @Override
     public List<Tweet> findAll() {
-        return null;
+        return tweetDao.findAll();
     }
 }
