@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/tweetTexts")
+@RequestMapping(value = "/api/tweetText")
 public class TweetTextRestController {
 
     @Autowired
