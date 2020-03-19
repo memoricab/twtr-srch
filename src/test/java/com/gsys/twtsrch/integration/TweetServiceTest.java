@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -19,14 +21,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = TwtSrchApplication.class)
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class TweetServiceTest {
 
     @Autowired
     private TweetService tweetService;
 
     @Test
-    public void getTweetTexts_shouldReturn_savedTweetTexts(){
+    public void getTweetTexts_shouldReturn_savedTweetTexts() {
         TweetText mockTweetText1 = new TweetText();
         mockTweetText1.setText("Text 1");
 
