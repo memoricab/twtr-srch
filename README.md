@@ -18,8 +18,7 @@ DATA_SOURCE_PASSWORD=
 #### Run with Docker
 Example docker run command,
 ``` 
-docker run --env ENV=dev --env APP_PORT=8080 --env "DATA_SOURCE_URL=jdbc:h2:mem:testdb;TRACE_LEVEL_FILE=4" --env DATA_SOURCE_USERNAME=sa --env DATA_SOURCE_PASSWORD= -p 8080:8080  -t twtr:LATEST
-```
+docker run --env ENV=dev --env APP_PORT=8080 --env "DATA_SOURCE_URL=jdbc:h2:mem:testdb;TRACE_LEVEL_FILE=4" --env DATA_SOURCE_USERNAME=sa --env DATA_SOURCE_PASSWORD= -p 8080:8080  -t celenmeh/twtr-srch```
 
 
 #### Testing
